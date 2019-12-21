@@ -1,4 +1,5 @@
 import unittest
+from datetime import date
 
 from students.main import *
 
@@ -36,10 +37,16 @@ class Test(unittest.TestCase):
         ]
 
     def test_get_student_per_course(self):
-        self.assertEqual(
-            [[], [self.students[2], self.students[0]], [self.students[1], self.students[4], self.students[3]], [], [],
-             [], []],
-            get_students_per_course(self.students))
+        expected = [
+            [],
+            [self.students[2], self.students[0]],
+            [self.students[1], self.students[4], self.students[3]],
+            [],
+            [],
+            [],
+            []
+        ]
+        self.assertEqual(expected, get_students_per_course(self.students))
 
     def test_get_oldest_student(self):
         self.assertEqual(self.students[4], get_oldest_student(self.students))
@@ -47,7 +54,41 @@ class Test(unittest.TestCase):
     def test_get_youngest_student(self):
         self.assertEqual(self.students[0], get_youngest_student(self.students))
 
+    def test_get_students_by_groups(self):
+        expected = {
+            13: [self.students[2]],
+            14: [self.students[0]],
+            23: [self.students[1], self.students[3], self.students[4]]
+        }
+        self.assertEqual(expected, get_students_by_groups(self.students))
 
+    def test_get_average_grade_by_discipline_in_groups(self):
+        expected = {
+            13: {
+                self.discipline1: self.grades[6].value,
+                self.discipline2: self.grades[7].value,
+                self.discipline3: self.grades[8].value
+            },
+            14: {
+                self.discipline1: self.grades[0].value,
+                self.discipline2: self.grades[1].value,
+                self.discipline3: self.grades[2].value
+            },
+            23: {
+                self.discipline1: (self.grades[3].value + self.grades[9].value + self.grades[12].value) / 3,
+                self.discipline2: (self.grades[4].value + self.grades[10].value + self.grades[13].value) / 3,
+                self.discipline3: (self.grades[5].value + self.grades[11].value + self.grades[14].value) / 3,
+            }
+        }
+        self.assertEqual(expected, get_average_grade_by_discipline_in_groups(self.students))
+
+    def test_get_student_with_max_grade_by_group(self):
+        expected = {
+            13: self.students[2],
+            14: self.students[0],
+            23: self.students[1]
+        }
+        self.assertEqual(expected, get_student_with_max_grade_by_group(self.students))
 
 
 if __name__ == '__main__':
