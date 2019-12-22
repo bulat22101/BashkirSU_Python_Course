@@ -1,0 +1,4 @@
+{"id": 1, "bus_type": 0, "stop_list": [{"id": 1, "name": "Golders Green Station"}, {"id": 4, "name": "Trafalgar Square"}, {"id": 8, "name": "Frampton Street"}, {"id": 10, "name": "West End Lane"}], "bus_number": 12, "department_id": 1}
+{"id": 2, "bus_type": 2, "stop_list": [{"id": 2, "name": "Waterloo Station"}, {"id": 4, "name": "Trafalgar Square"}, {"id": 6, "name": "Oxford Street"}, {"id": 9, "name": "Marlborough Place"}, {"id": 10, "name": "West End Lane"}], "bus_number": 52, "department_id": 2}
+{"id": 3, "bus_type": 1, "stop_list": [{"id": 3, "name": "Lancaster Place"}, {"id": 4, "name": "Trafalgar Square"}, {"id": 5, "name": "Selfridges"}, {"id": 6, "name": "Oxford Street"}], "bus_number": 72, "department_id": 1}
+{"id": 4, "bus_type": 0, "stop_list": [{"id": 1, "name": "Golders Green Station"}, {"id": 2, "name": "Waterloo Station"}, {"id": 7, "name": "Baker Street"}, {"id": 10, "name": "West End Lane"}], "bus_number": 1, "department_id": 3}
