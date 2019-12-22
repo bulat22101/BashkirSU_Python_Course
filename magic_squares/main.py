@@ -1,7 +1,7 @@
 from typing import List
 
 
-def generate_odd_square(size: int):
+def generate_odd_square(size: int) -> List[List[int]]:
     """Build associative magic square of given odd size using terrace method."""
     if size <= 0:
         raise ValueError("Size should be grater than 0. Actual: {}.".format(size))
@@ -38,7 +38,7 @@ def generate_odd_square(size: int):
     return result
 
 
-def generate_double_even_square(size: int):
+def generate_double_even_square(size: int) -> List[List[int]]:
     """Build associative magic square of given double even size using square frames method."""
     if size <= 0:
         raise ValueError("Size should be grater than 0. Actual: {}.".format(size))
@@ -86,7 +86,7 @@ def generate_double_even_square(size: int):
     return result
 
 
-def generate_single_even_square(size: int):
+def generate_single_even_square(size: int) -> List[List[int]]:
     """Build magic square of given single even size using 4 squares method."""
     if size <= 0:
         raise ValueError("Size should be grater than 0. Actual: {}.".format(size))
@@ -116,14 +116,14 @@ def generate_single_even_square(size: int):
     return result
 
 
-def print_square(square: List[List[int]]):
+def print_square(square: List[List[int]]) -> None:
     for row in square:
         for element in row:
             print(element, end=" ")
         print()
 
 
-def get_magic_square(size: int):
+def get_magic_square(size: int) -> List[List[int]]:
     """Build magic square with given size. Magic squares of odd and double even sizes are also built associative."""
     if size <= 0:
         raise ValueError("Size should be grater than 0. Actual: {}.".format(size))

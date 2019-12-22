@@ -1,6 +1,6 @@
 import unittest
 
-from matrix.main import *
+from magic_squares.main import *
 
 
 class Test(unittest.TestCase):
