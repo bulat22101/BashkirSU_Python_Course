@@ -20,6 +20,7 @@ class Door:
 
 
 def generate_random_doors(doors_number: int) -> List[Door]:
+    """Generate random doors list of given size."""
     result = []
     for i in range(doors_number):
         door_type = random.choice([d_type for d_type in DoorType])
@@ -28,7 +29,8 @@ def generate_random_doors(doors_number: int) -> List[Door]:
     return result
 
 
-def count_good_solutions_rec(step: int, power: int, current_door: Door, doors: List[Door], visited: List[bool]) -> int:
+def __count_good_solutions(step: int, power: int, current_door: Door, doors: List[Door], visited: List[bool]) -> int:
+    """Check all traversals of doors and return number of successful."""
     if step > 0:
         if current_door.door_type == DoorType.ARTIFACT:
             power += current_door.value
@@ -41,16 +43,19 @@ def count_good_solutions_rec(step: int, power: int, current_door: Door, doors: L
         next_door = doors[i]
         if not visited[i]:
             visited[i] = True
-            result += count_good_solutions_rec(step + 1, power, next_door, doors, visited)
+            result += __count_good_solutions(step + 1, power, next_door, doors, visited)
             visited[i] = False
     return result
 
 
-def count_good_solutions(doors: List[Door]) -> int:
-    return count_good_solutions_rec(0, 25, None, doors, [False for door in doors])
+def count_good_solutions(start_power: int, doors: List[Door]) -> int:
+    return __count_good_solutions(0, start_power, None, doors, [False for door in doors])
 
 
-def print_doors(doors: List[Door]):
+def print_doors(doors: List[Door]) -> None:
+    if doors is None or len(doors) == 0:
+        print(None)
+        return
     print("| # | id|   type  | value|")
     for door_i in range(len(doors)):
         print(
@@ -63,15 +68,16 @@ def print_doors(doors: List[Door]):
         )
 
 
-def get_greedy_solution(doors: List[Door]):
+def get_greedy_solution(start_power: int, doors: List[Door]) -> List[Door]:
+    """"Return successful traversal of doors using greedy algorithm or empty list if such traversal not exist."""
     sum_of_artifacts_values = sum(
         map(lambda door: door.value, filter(lambda door: door.door_type.value == DoorType.ARTIFACT, doors))
     )
-    strongest_monster = min(
-        filter(lambda door: door.door_type.value == DoorType.MONSTER, doors),
-        key=lambda door: door.door_type.value * door.value
+    strongest_monster_value = max(
+        map(lambda door: door.value, filter(lambda door: door.door_type.value == DoorType.MONSTER, doors)),
+        default=0
     )
-    if 25 + sum_of_artifacts_values < strongest_monster.value:
+    if start_power + sum_of_artifacts_values < strongest_monster_value:
         return []
     else:
         doors_clone = list(doors)
@@ -89,10 +95,10 @@ def main():
         print("Generated doors:")
         print_doors(doors_list)
         ways_number = math.factorial(number_of_doors)
-        good_ways_number = count_good_solutions(doors_list)
+        good_ways_number = count_good_solutions(25, doors_list)
         print("Good ways: {}/{}.".format(good_ways_number, ways_number))
         print("Greedy solution:")
-        print_doors(get_greedy_solution(doors_list))
+        print_doors(get_greedy_solution(25, doors_list))
 
 
 if __name__ == '__main__':
